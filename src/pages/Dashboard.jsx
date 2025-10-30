@@ -49,7 +49,7 @@ const Dashboard = () => {
   const deletePost = async (postId) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`/api/posts/${postId}`)
+        await axios.delete(`/posts/${postId}`)
         // Refresh dashboard data
         const response = await axios.get(`/users/${user.id}/dashboard`)
         setDashboardData(response.data)

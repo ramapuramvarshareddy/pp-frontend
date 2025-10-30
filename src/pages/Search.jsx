@@ -41,8 +41,8 @@ const Search = () => {
 
       // Use dedicated search endpoint if there's a text query
       const endpoint = filters.q && filters.q.trim() 
-        ? `/api/posts/search?${params.toString()}`
-        : `/api/posts?${params.toString()}`
+        ? `/posts/search?${params.toString()}`
+        : `/posts?${params.toString()}`
 
 
       const response = await axios.get(endpoint)

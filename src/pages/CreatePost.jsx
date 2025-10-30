@@ -106,7 +106,7 @@ const CreatePost = () => {
         }))
       }
 
-      const response = await axios.post('/api/posts', postData)
+      const response = await axios.post('/posts', postData)
       toast.success('Post created successfully!')
       navigate(`/post/${response.data.post._id}`)
     } catch (error) {

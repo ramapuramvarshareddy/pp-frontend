@@ -26,10 +26,10 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [featuredResponse, recentResponse, statsResponse, overviewResponse] = await Promise.all([
-          axios.get('/api/posts/featured'),
-          axios.get('/api/posts?limit=6'),
-          axios.get('/api/stats/trending'),
-          axios.get('/api/stats/overview')
+          axios.get('/posts/featured'),
+          axios.get('/posts?limit=6'),
+          axios.get('/stats/trending'),
+          axios.get('/stats/overview')
         ])
 
         setFeaturedPosts(featuredResponse.data.posts || [])

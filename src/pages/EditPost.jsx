@@ -20,7 +20,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/api/posts/${id}`)
+        const response = await axios.get(`/posts/${id}`)
         const postData = response.data.post
         setPost(postData)
 
@@ -48,7 +48,7 @@ const EditPost = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put(`/api/posts/${id}`, data)
+      await axios.put(`/posts/${id}`, data)
       toast.success('Post updated successfully!')
       navigate(`/post/${id}`)
     } catch (error) {

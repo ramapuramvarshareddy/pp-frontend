@@ -36,7 +36,7 @@ const PostDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/api/posts/${id}`)
+        const response = await axios.get(`/posts/${id}`)
         const postData = response.data.post
         setPost(postData)
         setLikesCount(postData.likesCount)
@@ -64,7 +64,7 @@ const PostDetail = () => {
     }
 
     try {
-      const response = await axios.post(`/api/posts/${id}/like`)
+      const response = await axios.post(`/posts/${id}/like`)
       setIsLiked(response.data.isLiked)
       setLikesCount(response.data.likesCount)
     } catch (error) {
@@ -88,7 +88,7 @@ const PostDetail = () => {
     setSubmittingComment(true)
 
     try {
-      const response = await axios.post(`/api/posts/${id}/comments`, {
+      const response = await axios.post(`/posts/${id}/comments`, {
         content: comment
       })
       
@@ -113,7 +113,7 @@ const PostDetail = () => {
   const handleDeleteComment = async (commentId) => {
     if (window.confirm('Are you sure you want to delete this comment?')) {
       try {
-        await axios.delete(`/api/posts/${id}/comments/${commentId}`)
+        await axios.delete(`/posts/${id}/comments/${commentId}`)
         setCommentsCount(prev => prev - 1)
         setPost(prev => ({
           ...prev,
@@ -130,7 +130,7 @@ const PostDetail = () => {
   const handleDeletePost = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`/api/posts/${id}`)
+        await axios.delete(`/posts/${id}`)
         toast.success('Post deleted successfully')
         window.history.back()
       } catch (error) {

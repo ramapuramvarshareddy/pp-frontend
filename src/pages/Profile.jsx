@@ -23,8 +23,8 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const [userResponse, postsResponse] = await Promise.all([
-          axios.get(`/api/users/profile/${userId}`),
-          axios.get(`/api/users/${userId}/posts`)
+          axios.get(`/users/profile/${userId}`),
+          axios.get(`/users/${userId}/posts`)
         ])
 
         setUser(userResponse.data.user)

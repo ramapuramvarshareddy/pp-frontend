@@ -24,7 +24,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get(`/api/users/${user.id}/dashboard`)
+        const response = await axios.get(`/users/${user.id}/dashboard`)
         setDashboardData(response.data)
       } catch (error) {
         console.error('Error fetching dashboard data:', error)
@@ -51,7 +51,7 @@ const Dashboard = () => {
       try {
         await axios.delete(`/api/posts/${postId}`)
         // Refresh dashboard data
-        const response = await axios.get(`/api/users/${user.id}/dashboard`)
+        const response = await axios.get(`/users/${user.id}/dashboard`)
         setDashboardData(response.data)
       } catch (error) {
         console.error('Error deleting post:', error)

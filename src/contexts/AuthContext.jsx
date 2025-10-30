@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await API.get('/api/auth/me')
+          const response = await API.get('/auth/me')
           setUser(response.data.user)
         } catch (error) {
           console.error('Failed to load user:', error)
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ Login
   const login = async (email, password) => {
     try {
-      const response = await API.post('/api/auth/login', { email, password })
+      const response = await API.post('/auth/login', { email, password })
       const { token: newToken, user: userData } = response.data
       
       localStorage.setItem('token', newToken)
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ Register
   const register = async (userData) => {
     try {
-      const response = await API.post('/api/auth/register', userData)
+      const response = await API.post('/auth/register', userData)
       const { token: newToken, user: userInfo } = response.data
       
       localStorage.setItem('token', newToken)
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
   // ✅ Update Profile
   const updateProfile = async (profileData) => {
     try {
-      const response = await API.put('/api/auth/profile', profileData)
+      const response = await API.put('/auth/profile', profileData)
       setUser(response.data.user)
       toast.success('Profile updated successfully!')
       return { success: true }

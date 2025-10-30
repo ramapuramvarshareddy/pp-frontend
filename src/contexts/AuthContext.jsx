@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import axios from 'axios'
 import toast from 'react-hot-toast'
+import API from '../api'  // ✅ Import the custom axios instance
 
 const AuthContext = createContext()
 
@@ -17,27 +17,27 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [token, setToken] = useState(localStorage.getItem('token'))
 
-  // Configure axios defaults
+  // ✅ Configure token in API headers
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      API.defaults.headers.common['Authorization'] = `Bearer ${token}`
     } else {
-      delete axios.defaults.headers.common['Authorization']
+      delete API.defaults.headers.common['Authorization']
     }
   }, [token])
 
-  // Load user on app start
+  // ✅ Load user when app starts
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await axios.get('/api/auth/me')
+          const response = await API.get('/api/auth/me')
           setUser(response.data.user)
         } catch (error) {
           console.error('Failed to load user:', error)
           localStorage.removeItem('token')
           setToken(null)
-          delete axios.defaults.headers.common['Authorization']
+          delete API.defaults.headers.common['Authorization']
         }
       }
       setLoading(false)
@@ -46,15 +46,16 @@ export const AuthProvider = ({ children }) => {
     loadUser()
   }, [token])
 
+  // ✅ Login
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password })
+      const response = await API.post('/api/auth/login', { email, password })
       const { token: newToken, user: userData } = response.data
       
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setUser(userData)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
+      API.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
       
       toast.success('Login successful!')
       return { success: true }
@@ -65,15 +66,16 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // ✅ Register
   const register = async (userData) => {
     try {
-      const response = await axios.post('/api/auth/register', userData)
+      const response = await API.post('/api/auth/register', userData)
       const { token: newToken, user: userInfo } = response.data
       
       localStorage.setItem('token', newToken)
       setToken(newToken)
       setUser(userInfo)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
+      API.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
       
       toast.success('Registration successful!')
       return { success: true }
@@ -84,17 +86,19 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // ✅ Logout
   const logout = () => {
     localStorage.removeItem('token')
     setToken(null)
     setUser(null)
-    delete axios.defaults.headers.common['Authorization']
+    delete API.defaults.headers.common['Authorization']
     toast.success('Logged out successfully')
   }
 
+  // ✅ Update Profile
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put('/api/auth/profile', profileData)
+      const response = await API.put('/api/auth/profile', profileData)
       setUser(response.data.user)
       toast.success('Profile updated successfully!')
       return { success: true }
@@ -122,10 +126,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
-
-
-
-
-
-

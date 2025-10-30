@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import API from '../api'
 import toast from 'react-hot-toast'
 
 const EditPost = () => {
@@ -20,7 +20,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/posts/${id}`)
+        const response = await API.get(`/posts/${id}`)
         const postData = response.data.post
         setPost(postData)
 
@@ -48,7 +48,7 @@ const EditPost = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put(`/posts/${id}`, data)
+      await API.put(`/posts/${id}`, data)
       toast.success('Post updated successfully!')
       navigate(`/post/${id}`)
     } catch (error) {
@@ -228,6 +228,7 @@ const EditPost = () => {
 }
 
 export default EditPost
+
 
 
 

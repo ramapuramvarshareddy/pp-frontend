@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { 
   TrendingUp, 
   Users, 
@@ -26,10 +26,10 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [featuredResponse, recentResponse, statsResponse, overviewResponse] = await Promise.all([
-          axios.get('/posts/featured'),
-          axios.get('/posts?limit=6'),
-          axios.get('/stats/trending'),
-          axios.get('/stats/overview')
+          API.get('/posts/featured'),
+          API.get('/posts?limit=6'),
+          API.get('/stats/trending'),
+          API.get('/stats/overview')
         ])
 
         setFeaturedPosts(featuredResponse.data.posts || [])

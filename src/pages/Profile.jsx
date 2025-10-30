@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { 
   User, 
   Building2, 
@@ -23,8 +23,8 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const [userResponse, postsResponse] = await Promise.all([
-          axios.get(`/users/profile/${userId}`),
-          axios.get(`/users/${userId}/posts`)
+          API.get(`/users/profile/${userId}`),
+          API.get(`/users/${userId}/posts`)
         ])
 
         setUser(userResponse.data.user)
@@ -193,6 +193,7 @@ const Profile = () => {
 }
 
 export default Profile
+
 
 
 

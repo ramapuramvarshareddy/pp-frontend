@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import { 
   Search as SearchIcon, 
   Filter,
@@ -45,7 +45,7 @@ const Search = () => {
         : `/posts?${params.toString()}`
 
 
-      const response = await axios.get(endpoint)
+      const response = await API.get(endpoint)
       setPosts(response.data.posts)
       setPagination(response.data.pagination)
     } catch (error) {

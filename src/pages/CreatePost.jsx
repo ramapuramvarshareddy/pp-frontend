@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import API from '../api'
 import toast from 'react-hot-toast'
 import { 
   Plus, 
@@ -106,7 +106,7 @@ const CreatePost = () => {
         }))
       }
 
-      const response = await axios.post('/posts', postData)
+      const response = await API.post('/posts', postData)
       toast.success('Post created successfully!')
       navigate(`/post/${response.data.post._id}`)
     } catch (error) {
@@ -452,6 +452,7 @@ const CreatePost = () => {
 }
 
 export default CreatePost
+
 
 
 
